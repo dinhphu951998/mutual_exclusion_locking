@@ -1,0 +1,14 @@
+{
+    "clangd.path": "C:/msys64/ucrt64/bin/clangd.exe",
+    "clangd.arguments": [
+      "--background-index",
+      "--clang-tidy",
+      "--completion-style=detailed",
+      "--header-insertion=iwyu"
+    ],
+  
+  
+    "terminal.integrated.env.windows": {
+      "PATH": "C:/msys64/ucrt64/bin;${env:PATH}"
+    }
+  }

@@ -1,0 +1,41 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "Build with MSYS2 Clang (UCRT64)",
+        "type": "shell",
+        "command": "C:/msys64/ucrt64/bin/clang++.exe",
+        "args": [
+          "-g",
+          "-std=c++20",
+          "${file}",
+          "-o",
+          "${fileDirname}/${fileBasenameNoExtension}.exe"
+        ],
+        "options": {
+          "cwd": "${fileDirname}"
+        },
+        "problemMatcher": ["$gcc"],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      },
+      {
+        "label": "Run file",
+        "type": "shell",
+        "command": "${fileBasenameNoExtension}.exe",
+        "options": {
+          "cwd": "${fileDirname}"
+        },
+        "dependsOn": "Build with MSYS2 Clang (UCRT64)",
+        "dependsOrder": "sequence",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "shared",
+          "focus": true
+        }
+      }
+    ]
+  }
