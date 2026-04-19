@@ -1,13 +1,11 @@
 #include <atomic>
 using namespace std;
 
-class spinlock
+class tas_spinlock
 {
-    atomic_flag flag;
+    atomic_flag flag{false};
 
     public:
-        spinlock():
-            flag(ATOMIC_FLAG_INIT){}
         
         void lock() {
             while(flag.test_and_set(std::memory_order_acquire)) {
