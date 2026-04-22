@@ -7,12 +7,12 @@
 #include "ttas.h"
 #include "mcs.h"
 
-static const int NUM_OF_ITERS = 10000; // keep it the same for every locking, easier to analyze the result
-static const int THREAD_COUNTS[] = {1, 2, 4, 8, 12, 16, 20}; //current laptop total thread is 20
-static const int OUTSIDE_WORKS[] = {0, 1, 3, 5};
+static const int NUM_OF_ITERS = 1000; // keep it the same for every locking, easier to analyze the result
+static const int THREAD_COUNTS[] = {1, 4, 8, 12, 16, 20}; //current laptop total thread is 20
+static const int OUTSIDE_WORKS[] = {0, 1, 3};
 // static const int NS[] = {53, 89, 101, 503, 1009, 10007, 50021, 100003};
-static const int NS[] = {53};
-static const bool USE_BACKOFF_OPTIONS[] = {false, true};
+static const int NS[] = { 101, 503, 1009, 10007};
+static const bool USE_BACKOFF_OPTIONS[] = {false};
 
 using namespace std;
 
