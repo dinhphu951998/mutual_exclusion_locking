@@ -15,28 +15,10 @@
         "options": {
           "cwd": "${fileDirname}"
         },
-        "problemMatcher": ["$gcc"],
         "group": {
           "kind": "build",
           "isDefault": true
         }
-      },
-      {
-        "label": "Build test_prime_checker (sample MCS)",
-        "type": "shell",
-        "command": "C:/msys64/ucrt64/bin/clang++.exe",
-        "args": [
-          "-g",
-          "-std=c++20",
-          "test_prime_checker.cpp",
-          "sample_mcs_lock/mcs_lock.cpp",
-          "-o",
-          "test_prime_checker.exe"
-        ],
-        "options": {
-          "cwd": "${workspaceFolder}/mutex-lock"
-        },
-        "problemMatcher": ["$gcc"]
       },
       {
         "label": "Run file",

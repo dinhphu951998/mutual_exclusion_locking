@@ -8,11 +8,11 @@
 #include "mcs.h"
 
 static const int NUM_OF_ITERS = 1000; // keep it the same for every locking, easier to analyze the result
-static const int THREAD_COUNTS[] = {1, 4, 8, 12, 16, 20}; //current laptop total thread is 20
-static const int OUTSIDE_WORKS[] = {0, 1, 3};
-// static const int NS[] = {53, 89, 101, 503, 1009, 10007, 50021, 100003};
-static const int NS[] = { 101, 503, 1009, 10007};
-static const bool USE_BACKOFF_OPTIONS[] = {false};
+static const int THREAD_COUNTS[] = {1, 2, 4, 8, 12, 16, 20};
+static const int OUTSIDE_WORKS[] = {0, 1, 3, 5, 7, 9};
+static const int NS[] = {53, 89, 101, 503, 1009, 10007, 50021, 100003};
+// static const int NS[] = { 101, 1009, 10007};
+static const bool USE_BACKOFF_OPTIONS[] = {true};
 
 using namespace std;
 
@@ -121,28 +121,34 @@ int main()
 
     cout << "threads,num_iters,outside_work,n,use_backoff,tas_ms,ttas_ms,mcs_ms\n";
 
-    for (size_t d = 0; d < n_bo; ++d) {
-        bool use_backoff = USE_BACKOFF_OPTIONS[d];
-        for (size_t a = 0; a < n_tc; ++a) {
-            int num_threads = THREAD_COUNTS[a];
-            if (num_threads <= 0) {
-                continue;
-            }
-            for (size_t b = 0; b < n_ow; ++b) {
-                int outside_work = OUTSIDE_WORKS[b];
-                for (size_t c = 0; c < n_n; ++c) {
-                    int n = NS[c];
+    for (int i = 0; i < 20; i++) {
 
-                    double tas_ms = time_tas_ms(num_threads, outside_work, n, use_backoff);
-                    double ttas_ms = time_ttas_ms(num_threads, outside_work, n, use_backoff);
-                    double mcs_ms = use_backoff ? -1 : time_mcs_ms(num_threads, outside_work, n);
-                    cout << num_threads << ',' << NUM_OF_ITERS << ',' << outside_work
-                         << ',' << n << ',' << (use_backoff ? 1 : 0) << ','
-                         << tas_ms << ',' << ttas_ms << ',' << mcs_ms << '\n';
+        for (size_t d = 0; d < n_bo; ++d) {
+            bool use_backoff = USE_BACKOFF_OPTIONS[d];
+            for (size_t a = 0; a < n_tc; ++a) {
+                int num_threads = THREAD_COUNTS[a];
+                if (num_threads <= 0) {
+                    continue;
+                }
+                for (size_t b = 0; b < n_ow; ++b) {
+                    int outside_work = OUTSIDE_WORKS[b];
+                    for (size_t c = 0; c < n_n; ++c) {
+                        int n = NS[c];
+    
+                        double tas_ms = time_tas_ms(num_threads, outside_work, n, use_backoff);
+                        double ttas_ms = time_ttas_ms(num_threads, outside_work, n, use_backoff);
+                        double mcs_ms = use_backoff ? -1 : time_mcs_ms(num_threads, outside_work, n);
+                        cout << num_threads << ',' << NUM_OF_ITERS << ',' << outside_work
+                             << ',' << n << ',' << (use_backoff ? 1 : 0) << ','
+                             << tas_ms << ',' << ttas_ms << ',' << mcs_ms << '\n';
+                    }
                 }
             }
         }
+
+        this_thread::sleep_for(chrono::milliseconds(100));
     }
+    
 
     return 0;
 }
