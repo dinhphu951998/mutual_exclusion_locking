@@ -2,12 +2,14 @@
     "version": "2.0.0",
     "tasks": [
       {
-        "label": "Build with MSYS2 Clang (UCRT64)",
+        "label": "Build with MSYS2 GCC (UCRT64)",
         "type": "shell",
-        "command": "C:/msys64/ucrt64/bin/clang++.exe",
+        "command": "C:/msys64/ucrt64/bin/g++.exe",
         "args": [
           "-g",
           "-std=c++20",
+          "-fopenmp",
+          "-pthread",
           "${file}",
           "-o",
           "${fileDirname}/${fileBasenameNoExtension}.exe"
@@ -27,7 +29,7 @@
         "options": {
           "cwd": "${fileDirname}"
         },
-        "dependsOn": "Build with MSYS2 Clang (UCRT64)",
+        "dependsOn": "Build with MSYS2 GCC (UCRT64)",
         "dependsOrder": "sequence",
         "problemMatcher": [],
         "presentation": {
