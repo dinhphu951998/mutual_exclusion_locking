@@ -4,9 +4,9 @@
 #include "../tas.h"
 
 static constexpr int NUM_OF_ITERS = 1000;
-static constexpr int THREAD_COUNTS[] = {16};
-static constexpr int OUTSIDE_WORKS[] = {0, 1 ,3 , 5, 7, 9};
-static constexpr int NS[] = {100003};
+static constexpr int THREAD_COUNTS[] = {2, 4, 12, 16};
+static constexpr int OUTSIDE_WORKS[] = {1};
+static constexpr int NS[] = {10007, 50021, 100003};
 
 static double time_tas_ms(int thread_count, int outside_work, int n, bool use_backoff)
 {
