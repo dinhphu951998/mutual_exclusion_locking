@@ -5,11 +5,11 @@
 
 #include "../mutex-lock/exp_backoff.h"
 
+static const unsigned kInitialDelayNs = 10;
+static const unsigned kMaxDelayNs = 80;
+
 class MutexCounter {
 public:
-    static const unsigned kInitialDelayNs = 50;
-    static const unsigned kMaxDelayNs = 6400;
-
     explicit MutexCounter(bool use_backoff = false)
         : use_exponential_backoff(use_backoff) {}
 
@@ -34,9 +34,6 @@ private:
 
 class CASCounter {
 public:
-    static const unsigned kInitialDelayNs = 50;
-    static const unsigned kMaxDelayNs = 6400;
-
     explicit CASCounter(bool use_backoff = false)
         : use_exponential_backoff(use_backoff) {}
 

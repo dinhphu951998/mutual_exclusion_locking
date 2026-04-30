@@ -48,14 +48,17 @@ int main() {
   while (repeat-- > 0) {
     for (int num_threads : THREAD_COUNTS) {
       for (int increments_per_thread : INCREMENTS_PER_THREAD) {
-        const double mutex_ms = run_benchmark<MutexCounter>(
-            "MutexCounter", num_threads, increments_per_thread, false);
-        const double mutex_eb_ms = run_benchmark<MutexCounter>(
-            "MutexCounterWithEB", num_threads, increments_per_thread, true);
+
         const double cas_ms = run_benchmark<CASCounter>(
             "CASCounter", num_threads, increments_per_thread, false);
         const double cas_eb_ms = run_benchmark<CASCounter>(
             "CASCounterWithEB", num_threads, increments_per_thread, true);
+
+        const double mutex_ms = run_benchmark<MutexCounter>(
+            "MutexCounter", num_threads, increments_per_thread, false);
+        const double mutex_eb_ms = run_benchmark<MutexCounter>(
+            "MutexCounterWithEB", num_threads, increments_per_thread, true);
+
         const double faa_ms = run_benchmark<FetchAddCounter>(
             "FetchAddCounter", num_threads, increments_per_thread, false);
 
